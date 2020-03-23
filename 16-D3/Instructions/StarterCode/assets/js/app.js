@@ -5,8 +5,8 @@ d3.csv("assets/data/data.csv").then(function(data) {
   
   
   var margin = {top: 30, right: 30, bottom: 30, left: 60},
-  width = 500 ,
-  height = 500;
+  width = 1000 ,
+  height = 1000;
 
   var svg = d3.select("#scatter")
   .append("svg")
@@ -59,6 +59,20 @@ d3.csv("assets/data/data.csv").then(function(data) {
     .append("circle")
       .attr("cx", function (d) { return x(d.age);} )
       .attr("cy", function (d) { return y(d.smokes); } )
-      .attr("r",6)
-      .style("fill", "#69b3a2")
+      .attr("r",8)
+      .style("fill", "#69b3a2");
+
+    // add labels to dots
+  svg.append('g')
+  .attr("font-family", "sans-serif")
+  .attr("font-size", 10)
+.selectAll("text")
+.data(data)
+.join("text")
+  // .attr("dy", "0.35em")
+  .attr("x", d => x(d.age - 0.007))
+  .attr("y", d => y(d.smokes))
+  .text(d => d.abbr);
     });
+
+    
