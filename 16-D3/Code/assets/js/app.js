@@ -22,7 +22,7 @@ d3.csv("assets/data/data.csv").then(function(data) {
   var max_age = (Math.max.apply(Math, data.map(row=> (row.age))))
   var min_age = (Math.min.apply(Math, data.map(row=> (row.age))))
   var x = d3.scaleLinear()
-    .domain([min_age - 1, max_age + 1])
+    .domain([min_age -0.5, max_age + 0.5])
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -69,10 +69,11 @@ d3.csv("assets/data/data.csv").then(function(data) {
 .selectAll("text")
 .data(data)
 .join("text")
-  // .attr("dy", "0.35em")
-  .attr("x", d => x(d.age - 0.007))
-  .attr("y", d => y(d.smokes))
+.attr("text-anchor", "middle")
+  .attr("x", function (d) { return x(d.age);})
+  .attr("y", function (d) { return y(d.smokes - 0.05);})
   .text(d => d.abbr);
+  
     });
 
     
